@@ -27,7 +27,7 @@ label {
 }
 
 .app .image-gallery {
-  margin: 0 auto;
+  margin: 50px auto;
   width: 100%;
   overflow: hidden;
 }

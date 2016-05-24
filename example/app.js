@@ -15,7 +15,7 @@ class App extends React.Component {
             infinite: true,
             showThumbnails: false,
             showNav: true,
-            slideInterval: 5000,
+            slideInterval: 4000,
             fullscreen: false,
         }
     }
@@ -91,15 +91,20 @@ class App extends React.Component {
             {
                 original: '/images/03.jpg',
                 thumbnail: '/images/03.jpg',
-                title: 'test 02',
+                title: 'test 03',
+                description: 'Custom class for slides & thumbnails'
             },
             {
                 original: '/images/04.jpg',
-                thumbnail: '/images/04.jpg'
+                thumbnail: '/images/04.jpg',
+                title: 'test 04',
+                description: 'Custom class for slides & thumbnails'
             },
             {
                 original: '/images/05.jpg',
-                thumbnail: '/images/05.jpg'
+                thumbnail: '/images/05.jpg',
+                title: 'test 05',
+                description: 'Custom class for slides & thumbnails'
             }
 
         ]
@@ -124,6 +129,7 @@ class App extends React.Component {
                     slideInterval={parseInt(this.state.slideInterval)}
                     autoPlay={this.state.isPlaying}
                     slideOnThumbnailHover={this.state.slideOnThumbnailHover}
+                    bannerWidth={1120}
                 />
 
                 <div className='app-sandbox'>

@@ -380,19 +380,19 @@ export default class ImageGallery extends React.Component {
 
     _getSlideStyle(index) {
         const {currentIndex, offsetPercentage} = this.state
-        const basetranslateX = -1120 * currentIndex
+        const basetranslateX = -this.props.bannerWidth * currentIndex
         const totalSlides = this.props.items.length - 1
 
-        let translateX = basetranslateX + (index * 1120) + offsetPercentage
+        let translateX = basetranslateX + (index * this.props.bannerWidth) + offsetPercentage
         let zIndex = 1
 
         if (this.props.infinite && this.props.items.length > 1) {
             if (currentIndex === 0 && index === totalSlides) {
                 // make the last slide the slide before the first
-                translateX = -1120 + offsetPercentage
+                translateX = -this.props.bannerWidth + offsetPercentage
             } else if (currentIndex === totalSlides && index === 0) {
                 // make the first slide the slide after the last
-                translateX = 1120 + offsetPercentage
+                translateX = this.props.bannerWidth + offsetPercentage
             }
         }
 
@@ -463,13 +463,12 @@ export default class ImageGallery extends React.Component {
                     style={Object.assign(this._getSlideStyle(index), this.state.style)}
                     onClick={this.props.onClick}
                 >
-                    <div className='image-gallery-image' style={{backgroundImage: 'url(' + item.original + ')'}}>
-                        {
-                            item.description &&
-                            <span className='image-gallery-description'>
-                  {item.description}
-                </span>
-                        }
+                    <div
+                        className='image-gallery-image'
+                        style={{backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, .4), rgba(0, 0, 0, .6)), url(' + item.original + ')'}}
+                    >
+                        { item.title && <div className='image-gallery-title'>{item.title}</div> }
+                        { item.description && <div className='image-gallery-description'>{item.description}</div>}
                     </div>
                 </div>
             )
@@ -493,19 +492,11 @@ export default class ImageGallery extends React.Component {
                         onMouseOver={this._handleMouseOverThumbnails.bind(this, index)}
                         onMouseLeave={this._handleMouseLeaveThumbnails.bind(this, index)}
                         key={index}
-                        className={
-              'image-gallery-thumbnail' +
-              (currentIndex === index ? ' active' : '') +
-              thumbnailClass
-            }
-
+                        className={'image-gallery-thumbnail' +(currentIndex === index ? ' active' : '') + thumbnailClass}
                         onTouchStart={event => this.slideToIndex.call(this, index, event)}
                         onClick={event => this.slideToIndex.call(this, index, event)}>
 
-                        <img
-                            src={item.thumbnail}
-                            alt={item.thumbnailAlt}
-                            onError={onThumbnailError.bind(this)}/>
+                        <img src={item.thumbnail} alt={item.thumbnailAlt} onError={onThumbnailError.bind(this)}/>
                     </a>
                 )
             }
@@ -514,10 +505,7 @@ export default class ImageGallery extends React.Component {
                 bullets.push(
                     <li
                         key={index}
-                        className={
-              'image-gallery-bullet ' + (
-                currentIndex === index ? 'active' : '')}
-
+                        className={'image-gallery-bullet ' + (currentIndex === index ? 'active' : '')}
                         onTouchStart={event => this.slideToIndex.call(this, index, event)}
                         onClick={event => this.slideToIndex.call(this, index, event)}>
                     </li>
@@ -539,18 +527,11 @@ export default class ImageGallery extends React.Component {
                                     <div key='navigation' className='image-gallery-navs'>
                                         {
                                             this._canSlideLeft() &&
-                                            <a
-                                                className='image-gallery-left-nav'
-                                                onTouchStart={slideLeft}
-                                                onClick={slideLeft}/>
-
+                                            <a className='image-gallery-left-nav' onTouchStart={slideLeft} onClick={slideLeft}/>
                                         }
                                         {
                                             this._canSlideRight() &&
-                                            <a
-                                                className='image-gallery-right-nav'
-                                                onTouchStart={slideRight}
-                                                onClick={slideRight}/>
+                                            <a className='image-gallery-right-nav' onTouchStart={slideRight} onClick={slideRight}/>
                                         }
                                     </div>
                                 </div>,
@@ -586,15 +567,15 @@ export default class ImageGallery extends React.Component {
                     {
                         this.props.showIndex &&
                         <div className='image-gallery-index'>
-                <span className='image-gallery-index-current'>
-                  {this.state.currentIndex + 1}
-                </span>
-                <span className='image-gallery-index-separator'>
-                  {this.props.indexSeparator}
-                </span>
-                <span className='image-gallery-index-total'>
-                  {this.props.items.length}
-                </span>
+                            <span className='image-gallery-index-current'>
+                              {this.state.currentIndex + 1}
+                            </span>
+                            <span className='image-gallery-index-separator'>
+                              {this.props.indexSeparator}
+                            </span>
+                            <span className='image-gallery-index-total'>
+                              {this.props.items.length}
+                            </span>
                         </div>
                     }
                 </div>

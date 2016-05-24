@@ -48,7 +48,7 @@ $ig-banner-height: 250px;
     z-index: 4;
 
     @media (max-width: $ig-screen-sm-min) {
-      font-size: 3.4em;
+      font-size: 1em;
     }
 
     @media (min-width: $ig-screen-sm-min) {
@@ -102,11 +102,32 @@ $ig-banner-height: 250px;
     width: 100%;
   }
 
+  .image-gallery-title {
+    //background: $ig-background-black;
+    bottom: 120px;
+    color: $ig-white;
+    font-size: 24px;
+    font-weight: bolder;
+    left: 30px;
+    line-height: 24px;
+    padding: 10px 20px;
+    position: absolute;
+    transition: all .45s ease-out;
+    white-space: normal;
+
+    @media (max-width: $ig-screen-sm-min) {
+      bottom: 80px;
+      font-size: .8em;
+      padding: 8px 15px;
+    }
+
+  }
+
   .image-gallery-description {
-    background: $ig-background-black;
+    //background: $ig-background-black;
     bottom: 70px;
     color: $ig-white;
-    left: 0;
+    left: 30px;
     line-height: 1;
     padding: 10px 20px;
     position: absolute;
