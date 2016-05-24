@@ -380,19 +380,19 @@ export default class ImageGallery extends React.Component {
 
     _getSlideStyle(index) {
         const {currentIndex, offsetPercentage} = this.state
-        const basetranslateX = -100 * currentIndex
+        const basetranslateX = -1120 * currentIndex
         const totalSlides = this.props.items.length - 1
 
-        let translateX = basetranslateX + (index * 100) + offsetPercentage
+        let translateX = basetranslateX + (index * 1120) + offsetPercentage
         let zIndex = 1
 
         if (this.props.infinite && this.props.items.length > 1) {
             if (currentIndex === 0 && index === totalSlides) {
                 // make the last slide the slide before the first
-                translateX = -100 + offsetPercentage
+                translateX = -1120 + offsetPercentage
             } else if (currentIndex === totalSlides && index === 0) {
                 // make the first slide the slide after the last
-                translateX = 100 + offsetPercentage
+                translateX = 1120 + offsetPercentage
             }
         }
 
@@ -403,7 +403,7 @@ export default class ImageGallery extends React.Component {
             zIndex = 2
         }
 
-        const translate3d = `translate3d(${translateX}%, 0, 0)`
+        const translate3d = `translate3d(${translateX}px, 0, 0)`
 
         return {
             WebkitTransform: translate3d,
@@ -464,16 +464,6 @@ export default class ImageGallery extends React.Component {
                     onClick={this.props.onClick}
                 >
                     <div className='image-gallery-image' style={{backgroundImage: 'url(' + item.original + ')'}}>
-                        {/**
-                         <img
-                         src={item.original}
-                         alt={item.originalAlt}
-                         srcSet={item.srcSet}
-                         sizes={item.sizes}
-                         onLoad={this.props.onImageLoad}
-                         onError={onImageError.bind(this)}
-                         />
-                         **/}
                         {
                             item.description &&
                             <span className='image-gallery-description'>
@@ -545,23 +535,25 @@ export default class ImageGallery extends React.Component {
                         this._canNavigate() ?
                             [
                                 this.props.showNav &&
-                                <span key='navigation'>
-                    {
-                        this._canSlideLeft() &&
-                        <a
-                            className='image-gallery-left-nav'
-                            onTouchStart={slideLeft}
-                            onClick={slideLeft}/>
+                                <div key='navContainer' className='image-gallery-nav-container'>
+                                    <div key='navigation' className='image-gallery-navs'>
+                                        {
+                                            this._canSlideLeft() &&
+                                            <a
+                                                className='image-gallery-left-nav'
+                                                onTouchStart={slideLeft}
+                                                onClick={slideLeft}/>
 
-                    }
-                                    {
-                                        this._canSlideRight() &&
-                                        <a
-                                            className='image-gallery-right-nav'
-                                            onTouchStart={slideRight}
-                                            onClick={slideRight}/>
-                                    }
-                  </span>,
+                                        }
+                                        {
+                                            this._canSlideRight() &&
+                                            <a
+                                                className='image-gallery-right-nav'
+                                                onTouchStart={slideRight}
+                                                onClick={slideRight}/>
+                                        }
+                                    </div>
+                                </div>,
 
                                 <Swipeable
                                     className='image-gallery-swipe'

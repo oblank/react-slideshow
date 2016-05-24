@@ -8,14 +8,14 @@ class App extends React.Component {
     constructor() {
         super()
         this.state = {
-            isPlaying: false,
+            isPlaying: true,
             showIndex: false,
             slideOnThumbnailHover: false,
-            showBullets: true,
+            showBullets: false,
             infinite: true,
-            showThumbnails: true,
+            showThumbnails: false,
             showNav: true,
-            slideInterval: 2000,
+            slideInterval: 5000,
             fullscreen: false,
         }
     }
