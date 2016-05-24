@@ -28,7 +28,9 @@ label {
 
 .app .image-gallery {
   margin: 0 auto;
-  width: 100%;
+  width: 50%;
+  overflow: hidden;
+  height: 250px;
 }
 
 @media (min-width: 1320px) {

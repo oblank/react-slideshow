@@ -12,69 +12,69 @@ var buffer = require('vinyl-buffer')
 var watchify = require('watchify')
 
 gulp.task('server', function () {
-  connect.server({
-    host: '0.0.0.0',
-    root: ['example', 'build'],
-    port: 8001,
-    livereload: true
-  })
+    connect.server({
+        host: '0.0.0.0',
+        root: ['example', 'build'],
+        port: 8001,
+        livereload: true
+    })
 })
 
 gulp.task('sass', function () {
-  gulp.src('./src/image-gallery.scss')
-    .pipe(sass())
-    .pipe(rename('image-gallery.css'))
-    .pipe(gulp.dest('./build/'))
-    .pipe(livereload())
+    gulp.src('./src/image-gallery.scss')
+        .pipe(sass())
+        .pipe(rename('image-gallery.css'))
+        .pipe(gulp.dest('./build/'))
+        .pipe(livereload())
 })
 
-gulp.task('scripts', function() {
-  watchify(browserify({
-    entries: './example/app.js',
-    extensions: ['.jsx'],
-    debug: true
-  }).transform('babelify', {
-      plugins: ['transform-runtime'],
-      presets: ['es2015', 'react']
+gulp.task('scripts', function () {
+    watchify(browserify({
+        entries: './example/app.js',
+        extensions: ['.jsx'],
+        debug: true
+    }).transform('babelify', {
+        plugins: ['transform-runtime'],
+        presets: ['es2015', 'react']
     }))
-    .bundle()
-    .pipe(source('example.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest('./example/'))
-    .pipe(livereload())
+        .bundle()
+        .pipe(source('example.js'))
+        .pipe(buffer())
+        .pipe(gulp.dest('./example/'))
+        .pipe(livereload())
 })
 
-gulp.task('demo-js', function() {
-  process.env.NODE_ENV = 'production'
-  browserify({
-    entries: './example/app.js',
-    extensions: ['.jsx'],
-    debug: true
-  }).transform('babelify', {
-      plugins: ['transform-runtime'],
-      presets: ['es2015', 'react']
+gulp.task('demo-js', function () {
+    process.env.NODE_ENV = 'production'
+    browserify({
+        entries: './example/app.js',
+        extensions: ['.jsx'],
+        debug: true
+    }).transform('babelify', {
+        plugins: ['transform-runtime'],
+        presets: ['es2015', 'react']
     })
-    .bundle()
-    .pipe(source('demo.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest('./demo/'))
+        .bundle()
+        .pipe(source('demo.js'))
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest('./demo/'))
 })
 
 gulp.task('source-js', function () {
-  return gulp.src('./src/ImageGallery.jsx')
-    .pipe(concat('image-gallery.js'))
-    .pipe(babel({
-      plugins: ['transform-runtime'],
-      presets: ['es2015', 'react']
-    }))
-    .pipe(gulp.dest('./build'))
+    return gulp.src('./src/ImageGallery.jsx')
+        .pipe(concat('image-gallery.js'))
+        .pipe(babel({
+            plugins: ['transform-runtime'],
+            presets: ['es2015', 'react']
+        }))
+        .pipe(gulp.dest('./build'))
 })
 
-gulp.task('watch', function() {
-  livereload.listen()
-  gulp.watch(['src/*.scss'], ['sass'])
-  gulp.watch(['src/*.jsx', 'example/app.js'], ['scripts'])
+gulp.task('watch', function () {
+    livereload.listen()
+    gulp.watch(['src/*.scss'], ['sass'])
+    gulp.watch(['src/*.jsx', 'example/app.js'], ['scripts'])
 })
 
 gulp.task('dev', ['watch', 'scripts', 'sass', 'server'])
